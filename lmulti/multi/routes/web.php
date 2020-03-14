@@ -19,4 +19,20 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'admin', 'namespace'=>'Admin' ]);
+Route::group([
+    'as' => 'admin.',
+    'prefix' => 'admin', 
+    'namespace'=>'Admin', 
+    'middleware' => ['auth', 'admin']],
+    function(){
+        Route::get('dashbord','DashbordController@index')->name('dashbord');
+    });
+
+Route::group([
+    'as' => 'author.',
+    'prefix' => 'author', 
+    'namespace'=>'Author', 
+    'middleware' => ['auth', 'author']],
+    function(){
+        Route::get('dashbord','DashbordController@index')->name('dashbord');
+    });
