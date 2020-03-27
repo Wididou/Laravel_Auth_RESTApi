@@ -1,67 +1,87 @@
- @extends('layouts.main')
- @section('content')
+<!DOCTYPE html>
+<html lang="{{ config('app.locale') }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
- <div class="container">  
+        <title>Laravel</title>
 
-<h1> Home Page </h1> 
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-@if (session('successMsg'))
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
+            .full-height {
+                height: 100vh;
+            }
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+            .position-ref {
+                position: relative;
+            }
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
+            .content {
+                text-align: center;
+            }
+            .title {
+                font-size: 84px;
+            }
+            .links > a {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    @if (Auth::check())
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        <a href="{{ url('/login') }}">Login</a>
+                        <a href="{{ url('/register') }}">Register</a>
+                    @endif
+                </div>
+            @endif
 
-<div class="alert alert-success" role="alert">
- {{ session('successMsg') }}
-</div>
+            <div class="content">
+                <div class="title m-b-md">
+                    Laravel
+                </div>
 
-@endif
-
-<table class="table">
-  <thead class="black white-text">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First Name </th>
-      <th scope="col">Last Name </th>
-      <th scope="col">Email </th>
-      <th scope="col">Phone  </th>
-      <th scope="col">Action </th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($students as $student)
-    <tr>
-      <th scope="row">{{ $student->id }}</th>
-      <td>{{ $student->first_name }}</td>
-      <td>{{ $student->last_name }}</td>
-      <td>{{ $student->email }}</td>
-      <td>{{ $student->phone }}</td>
-      <td> <a class="btn btn-raised btn-primary btn-sm" href="{{ route('edit', $student->id) }}"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
-          
-       || 
-    <form method="POST" id="delete-form-{{ $student->id }}" action="{{ route('delete', $student->id) }}" style="display: none;">
-    {{ csrf_field() }}
-    {{ method_field('delete') }} 
-    </form>   
- 
-   <button onclick="if (confirm('Are you sure to delete this data?')) {
-   event.preventDefault();
-   document.getElementById('delete-form-{{ $student->id }}').submit();
-
-   }else{
-    event.preventDefault();
-   }
-
-   "  class="btn btn-raised btn-danger btn-sm" href=" "><i class="fa fa-trash" aria-hidden="true"></i>  
-
-       </button>
-
-        </td>
-    </tr>
-   
-   @endforeach
-  </tbody>
-</table>
-
-  {{ $students->links()  }}
-
-</div>
-
-
- @endsection
+                <div class="links">
+                    <a href="https://laravel.com/docs">Documentation</a>
+                    <a href="https://laracasts.com">Laracasts</a>
+                    <a href="https://laravel-news.com">News</a>
+                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
