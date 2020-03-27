@@ -12,7 +12,30 @@ use App\Article;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('articless')
+Route::get('articles', function(){
+    return Article::all();
+});
+
+Route::get('articles/{id}',function(){
+    return Article::find($id);
+});
+
+Route::post('articles',function(Request $request){
+    return Article::create($request->all);
+});
+
+
+Route::put('articles/{id}',function(Request $request, $id){
+    $article = Article::findOrFail($id);
+    $article->update($request->all);
+    return $article;
+});
+
+Route::put('articles/{id}',function($id){
+    $article->find($id)->delete();
+    return 204;
+});
+
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
