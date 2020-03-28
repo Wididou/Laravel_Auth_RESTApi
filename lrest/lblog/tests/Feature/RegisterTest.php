@@ -1,6 +1,7 @@
 <?php
 
 namespace Tests\Feature;
+use App\User;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -11,10 +12,10 @@ class RegisterTest extends TestCase
     public function testsRegistersSuccessfully()
     {
         $payload = [
-            'name' => 'John',
-            'email' => 'john@toptal.com',
-            'password' => 'toptal123',
-            'password_confirmation' => 'toptal123',
+            'name' => 'admin',
+            'email' => 'admin@test.com',
+            'password' => 'admin',
+            'password_confirmation' => 'admin',
         ];
 
         $this->json('post', '/api/register', $payload)
